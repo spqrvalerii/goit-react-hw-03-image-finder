@@ -29,6 +29,10 @@ class App extends Component {
     this.setState({ isLoading: true, error: null });
     fetchImages(query, page)
       .then(({ hits, totalHits }) => {
+        if (!hits.length) {
+          toast('Images not found');
+          return;
+        }
         const imagesArray = hits.map(
           ({ id, tags, webformatURL, largeImageURL }) => ({
             id: id,
@@ -37,10 +41,6 @@ class App extends Component {
             largeImage: largeImageURL,
           })
         );
-        if (!imagesArray.length) {
-          toast('Images not found');
-          return;
-        }
         return this.setState((prevState) => {
           return {
           images: [...prevState.images, ...imagesArray],
