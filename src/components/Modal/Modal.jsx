@@ -1,13 +1,13 @@
 import { Component } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import css from './Modal.module.css';
 
 class Modal extends Component {
   static propTypes = {
-    title: propTypes.string,
-    onClose: propTypes.func.isRequired,
-    currentImageUrl: propTypes.string,
-    currentImageDescription: propTypes.string,
+    title: PropTypes.string,
+    onClose: PropTypes.func.isRequired,
+    currentImageUrl: PropTypes.string,
+    currentImageDescription: PropTypes.string,
   };
 
   componentDidMount() {

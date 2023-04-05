@@ -1,4 +1,4 @@
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Slide, toast } from 'react-toastify';
 
 const Toastify = (type, nameToastify) =>
@@ -13,8 +13,8 @@ const Toastify = (type, nameToastify) =>
   });
 
 Toastify.propTypes = {
-  type: propTypes.string.isRequired,
-  nameToastify: propTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  nameToastify: PropTypes.string.isRequired,
 };
 
 export { Toastify };

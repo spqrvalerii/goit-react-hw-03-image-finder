@@ -1,4 +1,4 @@
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import css from './Button.module.css';
 
 function Button({ onNextFetch }) {
@@ -10,7 +10,7 @@ function Button({ onNextFetch }) {
 }
 
 Button.propTypes = {
-  onNextFetch: propTypes.func.isRequired,
+  onNextFetch: PropTypes.func.isRequired,
 };
 
 export { Button };
