@@ -26,8 +26,8 @@ class App extends Component {
     const { query, page, error } = this.state;
 
     if (prevState.query !== query || prevState.page !== page) {
-    this.setState(({ isLoading }) => ({ isLoading: true, error: null }));
-    fetchImages(query)
+    this.setState({ isLoading: true, error: null });
+    fetchImages(query, page)
       .then(({ hits, totalHits }) => {
         const imagesArray = hits.map(
           ({ id, tags, webformatURL, largeImageURL }) => ({
@@ -41,13 +41,15 @@ class App extends Component {
           toast('Images not found');
           return;
         }
-        return this.setState({
-          images: [...this.state.images, ...imagesArray],
+        return this.setState((prevState) => {
+          return {
+          images: [...prevState.images, ...imagesArray],
           totalImages: totalHits,
+          }
         });
       })
       .catch((error) => this.setState({ error: error.message }))
-      .finally(() => this.setState(({ isLoading }) => ({ isLoading: false }))
+      .finally(() => this.setState({ isLoading: false })
       );
     }
     if (prevState.error !== error && error) {
@@ -64,19 +66,19 @@ class App extends Component {
   };
 
   openModal = ({ description, largeImage }) => {
-    this.setState(({ showModal }) => ({
+    this.setState({
       showModal: true,
       currentImageUrl: largeImage,
       currentImageDescription: description,
-    }));
+    });
   };
   
   closeModal = () => {
-    this.setState(({ showModal }) => ({
+    this.setState({
       showModal: false,
       currentImageUrl: null,
       currentImageDescription: null,
-    }));
+    });
   };
 
   render() {
@@ -95,7 +97,9 @@ class App extends Component {
       <>
         <Searchbar onSubmit={getSearchRequest} />
 
-        {images && <ImageGallery images={images} openModal={openModal} />}
+        {images.length > 0 && (
+          <ImageGallery images={images} openModal={openModal} />
+        )}
 
         {isLoading && <Loader />}
 
